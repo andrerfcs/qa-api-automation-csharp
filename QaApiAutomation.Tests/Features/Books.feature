@@ -13,3 +13,8 @@ Feature: Books
     Then o status code da resposta deve ser 200
     And o livro retornado deve possuir id igual a 1
     And o título do livro retornado não deve estar vazio
+
+  Scenario: Consultar livro por ID inexistente
+    Given que a API FakeRESTAPI está disponível
+    When eu enviar uma requisição GET para "/api/v1/Books/999999"
+    Then o status code da resposta deve ser 404
