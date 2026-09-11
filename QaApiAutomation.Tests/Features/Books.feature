@@ -18,3 +18,10 @@ Feature: Books
     Given que a API FakeRESTAPI está disponível
     When eu enviar uma requisição GET para "/api/v1/Books/999999"
     Then o status code da resposta deve ser 404
+
+  Scenario: Criar livro com sucesso
+    Given que a API FakeRESTAPI está disponível
+    When eu enviar uma requisição POST para "/api/v1/Books" com um novo livro
+    Then o status code da resposta deve ser 200
+    And o id do livro retornado deve ser igual ao enviado
+    And o título do livro retornado deve ser igual ao enviado
