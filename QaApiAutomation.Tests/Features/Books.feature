@@ -25,3 +25,10 @@ Feature: Books
     Then o status code da resposta deve ser 200
     And o id do livro retornado deve ser igual ao enviado
     And o título do livro retornado deve ser igual ao enviado
+
+  Scenario: Atualizar livro com sucesso
+    Given que a API FakeRESTAPI está disponível
+    When eu enviar uma requisição PUT para "/api/v1/Books/1" com um livro atualizado
+    Then o status code da resposta deve ser 200
+    And o id do livro retornado deve ser igual ao enviado
+    And o título do livro retornado deve ser igual ao enviado

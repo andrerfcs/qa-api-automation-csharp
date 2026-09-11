@@ -62,6 +62,25 @@ public class BooksSteps
         _response = await _client.ExecuteAsync(request);
     }
 
+    [When("eu enviar uma requisição PUT para {string} com um livro atualizado")]
+    public async Task WhenEuEnviarUmaRequisicaoPutParaComUmLivroAtualizado(string endpoint)
+    {
+        _livroEnviado = new Book
+        {
+            Id = 1,
+            Title = "Livro atualizado com sucesso",
+            Description = "Descrição atualizada do livro no teste",
+            PageCount = 250,
+            Excerpt = "Trecho atualizado do livro no teste",
+            PublishDate = new DateTime(2025, 2, 20)
+        };
+
+        var request = new RestRequest(endpoint, Method.Put);
+        request.AddJsonBody(_livroEnviado);
+
+        _response = await _client.ExecuteAsync(request);
+    }
+
     [Then("o status code da resposta deve ser {int}")]
     public void ThenOStatusCodeDaRespostaDeveSer(int statusCodeEsperado)
     {
