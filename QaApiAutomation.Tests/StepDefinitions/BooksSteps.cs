@@ -16,6 +16,7 @@ public class BooksSteps
 
     private RestClient _client = null!;
     private RestResponse _response = null!;
+    private Book _livroEnviado = null!;
 
     private Book ObterLivroDaResposta()
     {
@@ -38,6 +39,25 @@ public class BooksSteps
     public async Task WhenEuEnviarUmaRequisicaoGetPara(string endpoint)
     {
         var request = new RestRequest(endpoint, Method.Get);
+
+        _response = await _client.ExecuteAsync(request);
+    }
+
+    [When("eu enviar uma requisição POST para {string} com um novo livro")]
+    public async Task WhenEuEnviarUmaRequisicaoPostParaComUmNovoLivro(string endpoint)
+    {
+        _livroEnviado = new Book
+        {
+            Id = 101,
+            Title = "Livro criado com sucesso",
+            Description = "Descrição do livro criado no teste",
+            PageCount = 200,
+            Excerpt = "Trecho do livro criado no teste",
+            PublishDate = new DateTime(2024, 1, 15)
+        };
+
+        var request = new RestRequest(endpoint, Method.Post);
+        request.AddJsonBody(_livroEnviado);
 
         _response = await _client.ExecuteAsync(request);
     }
@@ -96,5 +116,21 @@ public class BooksSteps
         var livro = ObterLivroDaResposta();
 
         Assert.That(livro.Title, Is.Not.Null.And.Not.Empty);
+    }
+
+    [Then("o id do livro retornado deve ser igual ao enviado")]
+    public void ThenOIdDoLivroRetornadoDeveSerIgualAoEnviado()
+    {
+        var livro = ObterLivroDaResposta();
+
+        Assert.That(livro.Id, Is.EqualTo(_livroEnviado.Id));
+    }
+
+    [Then("o título do livro retornado deve ser igual ao enviado")]
+    public void ThenOTituloDoLivroRetornadoDeveSerIgualAoEnviado()
+    {
+        var livro = ObterLivroDaResposta();
+
+        Assert.That(livro.Title, Is.EqualTo(_livroEnviado.Title));
     }
 }
