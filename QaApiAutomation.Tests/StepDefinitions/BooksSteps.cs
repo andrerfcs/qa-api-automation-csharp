@@ -42,10 +42,10 @@ public class BooksSteps
         _response = await _client.ExecuteAsync(request);
     }
 
-    [Then("o status code da resposta deve ser 200")]
-    public void ThenOStatusCodeDaRespostaDeveSer200()
+    [Then("o status code da resposta deve ser {int}")]
+    public void ThenOStatusCodeDaRespostaDeveSer(int statusCodeEsperado)
     {
-        Assert.That(_response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        Assert.That((int)_response.StatusCode, Is.EqualTo(statusCodeEsperado));
     }
 
     [Then("a resposta deve conter uma lista de livros")]
