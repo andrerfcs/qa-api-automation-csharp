@@ -1,6 +1,6 @@
 using System.Text.Json;
+using QaApiAutomation.Tests.Clients;
 using QaApiAutomation.Tests.Models;
-using System.Net;
 using Reqnroll;
 using RestSharp;
 
@@ -14,7 +14,7 @@ public class BooksSteps
         PropertyNameCaseInsensitive = true
     };
 
-    private RestClient _client = null!;
+    private BooksApiClient _client = null!;
     private RestResponse _response = null!;
     private Book _livroEnviado = null!;
 
@@ -32,15 +32,13 @@ public class BooksSteps
     [Given("que a API FakeRESTAPI está disponível")]
     public void GivenQueAApiFakeRestApiEstaDisponivel()
     {
-        _client = new RestClient("https://fakerestapi.azurewebsites.net");
+        _client = new BooksApiClient();
     }
 
     [When("eu enviar uma requisição GET para {string}")]
     public async Task WhenEuEnviarUmaRequisicaoGetPara(string endpoint)
     {
-        var request = new RestRequest(endpoint, Method.Get);
-
-        _response = await _client.ExecuteAsync(request);
+        _response = await _client.ObterLivrosAsync(endpoint);
     }
 
     [When("eu enviar uma requisição POST para {string} com um novo livro")]
@@ -56,10 +54,7 @@ public class BooksSteps
             PublishDate = new DateTime(2024, 1, 15)
         };
 
-        var request = new RestRequest(endpoint, Method.Post);
-        request.AddJsonBody(_livroEnviado);
-
-        _response = await _client.ExecuteAsync(request);
+        _response = await _client.CriarLivroAsync(endpoint, _livroEnviado);
     }
 
     [When("eu enviar uma requisição PUT para {string} com um livro atualizado")]
@@ -75,18 +70,13 @@ public class BooksSteps
             PublishDate = new DateTime(2025, 2, 20)
         };
 
-        var request = new RestRequest(endpoint, Method.Put);
-        request.AddJsonBody(_livroEnviado);
-
-        _response = await _client.ExecuteAsync(request);
+        _response = await _client.AtualizarLivroAsync(endpoint, _livroEnviado);
     }
 
     [When("eu enviar uma requisição DELETE para {string}")]
     public async Task WhenEuEnviarUmaRequisicaoDeletePara(string endpoint)
     {
-        var request = new RestRequest(endpoint, Method.Delete);
-
-        _response = await _client.ExecuteAsync(request);
+        _response = await _client.ExcluirLivroAsync(endpoint);
     }
 
     [Then("o status code da resposta deve ser {int}")]
