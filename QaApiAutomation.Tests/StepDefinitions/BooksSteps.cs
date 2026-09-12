@@ -81,6 +81,14 @@ public class BooksSteps
         _response = await _client.ExecuteAsync(request);
     }
 
+    [When("eu enviar uma requisição DELETE para {string}")]
+    public async Task WhenEuEnviarUmaRequisicaoDeletePara(string endpoint)
+    {
+        var request = new RestRequest(endpoint, Method.Delete);
+
+        _response = await _client.ExecuteAsync(request);
+    }
+
     [Then("o status code da resposta deve ser {int}")]
     public void ThenOStatusCodeDaRespostaDeveSer(int statusCodeEsperado)
     {
