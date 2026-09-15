@@ -43,6 +43,11 @@ Feature: Books
     When eu enviar uma requisição DELETE para "/api/v1/Books/1"
     Then o status code da resposta deve ser 200
 
+  Scenario: Tentar excluir livro com ID inexistente
+    Given que a API FakeRESTAPI está disponível
+    When eu enviar uma requisição DELETE para "/api/v1/Books/999999"
+    Then o status code da resposta deve ser 200
+
   Scenario: Tentar criar livro com título vazio
     Given que a API FakeRESTAPI está disponível
     When eu enviar uma requisição POST para "/api/v1/Books" com um livro sem título
