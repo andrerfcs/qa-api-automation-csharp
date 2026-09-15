@@ -89,6 +89,22 @@ public class BooksSteps
         _response = await _client.AtualizarLivroAsync(endpoint, _livroEnviado);
     }
 
+    [When("eu enviar uma requisição PUT para {string} com um livro válido e ID inexistente")]
+    public async Task WhenEuEnviarUmaRequisicaoPutParaComUmLivroValidoEIdInexistente(string endpoint)
+    {
+        _livroEnviado = new Book
+        {
+            Id = 999999,
+            Title = "Livro inexistente atualizado",
+            Description = "Descrição válida para teste",
+            PageCount = 250,
+            Excerpt = "Trecho válido para teste",
+            PublishDate = new DateTime(2025, 2, 20)
+        };
+
+        _response = await _client.AtualizarLivroAsync(endpoint, _livroEnviado);
+    }
+
     [When("eu enviar uma requisição DELETE para {string}")]
     public async Task WhenEuEnviarUmaRequisicaoDeletePara(string endpoint)
     {

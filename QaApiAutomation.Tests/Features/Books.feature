@@ -33,6 +33,11 @@ Feature: Books
     And o id do livro retornado deve ser igual ao enviado
     And o título do livro retornado deve ser igual ao enviado
 
+  Scenario: Tentar atualizar livro com ID inexistente
+    Given que a API FakeRESTAPI está disponível
+    When eu enviar uma requisição PUT para "/api/v1/Books/999999" com um livro válido e ID inexistente
+    Then o status code da resposta deve ser 200
+
   Scenario: Excluir livro com sucesso
     Given que a API FakeRESTAPI está disponível
     When eu enviar uma requisição DELETE para "/api/v1/Books/1"
