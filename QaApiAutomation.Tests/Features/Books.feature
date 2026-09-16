@@ -52,3 +52,8 @@ Feature: Books
     Given que a API FakeRESTAPI está disponível
     When eu enviar uma requisição POST para "/api/v1/Books" com um livro sem título
     Then o status code da resposta deve ser 200
+
+  Scenario: Tentar criar livro com PageCount negativo
+    Given que a API FakeRESTAPI está disponível
+    When eu enviar uma requisição POST para "/api/v1/Books" com PageCount negativo
+    Then o status code da resposta deve ser 200
