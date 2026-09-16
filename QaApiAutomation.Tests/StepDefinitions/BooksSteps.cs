@@ -1,5 +1,6 @@
 using System.Text.Json;
 using QaApiAutomation.Tests.Clients;
+using QaApiAutomation.Tests.Configuration;
 using QaApiAutomation.Tests.Models;
 using Reqnroll;
 using RestSharp;
@@ -32,7 +33,7 @@ public class BooksSteps
     [Given("que a API FakeRESTAPI está disponível")]
     public void GivenQueAApiFakeRestApiEstaDisponivel()
     {
-        _client = new BooksApiClient();
+        _client = new BooksApiClient(ApiSettings.BaseUrl);
     }
 
     [When("eu enviar uma requisição GET para {string}")]

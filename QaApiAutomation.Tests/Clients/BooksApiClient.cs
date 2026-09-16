@@ -5,7 +5,12 @@ namespace QaApiAutomation.Tests.Clients;
 
 public class BooksApiClient
 {
-    private readonly RestClient _client = new("https://fakerestapi.azurewebsites.net");
+    private readonly RestClient _client;
+
+    public BooksApiClient(string baseUrl)
+    {
+        _client = new RestClient(baseUrl);
+    }
 
     public async Task<RestResponse> ObterLivrosAsync(string endpoint)
     {
