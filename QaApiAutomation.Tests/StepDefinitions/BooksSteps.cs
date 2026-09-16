@@ -73,6 +73,22 @@ public class BooksSteps
         _response = await _client.CriarLivroAsync(endpoint, _livroEnviado);
     }
 
+    [When("eu enviar uma requisição POST para {string} com PageCount negativo")]
+    public async Task WhenEuEnviarUmaRequisicaoPostParaComPageCountNegativo(string endpoint)
+    {
+        _livroEnviado = new Book
+        {
+            Id = 103,
+            Title = "Livro com page count negativo",
+            Description = "Descrição válida para teste",
+            PageCount = -1,
+            Excerpt = "Trecho válido para teste",
+            PublishDate = new DateTime(2024, 1, 15)
+        };
+
+        _response = await _client.CriarLivroAsync(endpoint, _livroEnviado);
+    }
+
     [When("eu enviar uma requisição PUT para {string} com um livro atualizado")]
     public async Task WhenEuEnviarUmaRequisicaoPutParaComUmLivroAtualizado(string endpoint)
     {
