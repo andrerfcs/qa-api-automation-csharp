@@ -41,6 +41,19 @@ A estrutura será organizada utilizando separação de responsabilidades entre:
 - Configurações
 - Evidências e relatórios
 
+## ⚙️ Configuração da API
+
+A URL base da FakeRESTAPI é definida pela variável de ambiente `API_BASE_URL`. Se a variável não estiver definida, os testes usam `https://fakerestapi.azurewebsites.net`, preservando a configuração atual.
+
+Para executar os testes contra um ambiente específico, defina a URL antes de executar `dotnet test`:
+
+```powershell
+$env:API_BASE_URL = "https://qa.example.com"
+dotnet test
+```
+
+No CI/CD, configure `API_BASE_URL` com a URL correspondente ao ambiente DEV, QA ou PROD.
+
 ## 🔄 CI/CD
 
 Os testes poderão ser executados automaticamente através do **GitHub Actions**, permitindo validação contínua do projeto.
