@@ -42,13 +42,91 @@ foreach ($result in $results) {
 $featureFiles = Get-ChildItem -Path (Join-Path $root "QaApiAutomation.Tests/Features") -Filter "*.feature" -File
 $features = foreach ($file in $featureFiles) {
     $lines = [System.IO.File]::ReadAllLines($file.FullName, [System.Text.Encoding]::UTF8)
-    $scenarios = foreach ($line in $lines) {
+    $featureName = ($lines | Where-Object { $_ -match '^Feature:\s*(.+)$' } | ForEach-Object { $Matches[1].Trim() } | Select-Object -First 1)
+    $scenarioObjects = @()
+    $currentScenario = $null
+    $inExamples = $false
+    $exampleHeaders = @()
+    $exampleRows = New-Object System.Collections.Generic.List[object]
+
+    foreach ($line in $lines) {
         if ($line -match '^\s*Scenario(?: Outline)?:\s*(.+)$') {
-            [ordered]@{ name = $Matches[1].Trim() }
+            if ($null -ne $currentScenario) {
+                $examplesData = if ($exampleHeaders.Count -gt 0) { [pscustomobject]@{ headers = @($exampleHeaders); rows = @($exampleRows) } } else { $null }
+                $scenarioObjects += [pscustomobject]@{
+                    name = $currentScenario.name
+                    feature = $currentScenario.feature
+                    method = $currentScenario.method
+                    route = $currentScenario.route
+                    steps = @($currentScenario.steps)
+                    examples = $examplesData
+                    status = $currentScenario.status
+                }
+            }
+
+            $currentScenario = [pscustomobject]@{
+                name = $Matches[1].Trim()
+                feature = $featureName
+                method = $null
+                route = $null
+                steps = @()
+                status = "Inventory"
+            }
+            $inExamples = $false
+            $exampleHeaders = @()
+            $exampleRows = New-Object System.Collections.Generic.List[object]
+            continue
+        }
+
+        if ($null -eq $currentScenario) {
+            continue
+        }
+
+        if ($line -match '^\s*Examples:\s*$') {
+            $inExamples = $true
+            continue
+        }
+
+        if ($inExamples -and $line -match '^\s*\|(.+)\|\s*$') {
+            $values = @($Matches[1].Split('|') | ForEach-Object { $_.Trim() })
+            if ($exampleHeaders.Count -eq 0) {
+                $exampleHeaders = $values
+            } else {
+                $row = [ordered]@{}
+                for ($index = 0; $index -lt $exampleHeaders.Count; $index++) {
+                    $row[$exampleHeaders[$index]] = if ($index -lt $values.Count) { $values[$index] } else { "" }
+                }
+                $exampleRows += $row
+            }
+            continue
+        }
+
+        if ($line -match '^\s*(Given|When|Then|And|But)\s+(.+)$') {
+            $keyword = $Matches[1]
+            $stepText = $Matches[2].Trim()
+            $currentScenario.steps += [pscustomobject]@{ keyword = $keyword; text = $stepText }
+            if ($keyword -eq "When" -and $stepText -match '\b(GET|POST|PUT|DELETE)\b') {
+                $currentScenario.method = $Matches[1]
+                if ($stepText -match '"([^\"]+)"') {
+                    $currentScenario.route = $Matches[1]
+                }
+            }
         }
     }
 
-    $featureName = ($lines | Where-Object { $_ -match '^Feature:\s*(.+)$' } | ForEach-Object { $Matches[1].Trim() } | Select-Object -First 1)
+    if ($null -ne $currentScenario) {
+        $examplesData = if ($exampleHeaders.Count -gt 0) { [pscustomobject]@{ headers = @($exampleHeaders); rows = @($exampleRows) } } else { $null }
+        $scenarioObjects += [pscustomobject]@{
+            name = $currentScenario.name
+            feature = $currentScenario.feature
+            method = $currentScenario.method
+            route = $currentScenario.route
+            steps = @($currentScenario.steps)
+            examples = $examplesData
+            status = $currentScenario.status
+        }
+    }
+
     $featurePassed = @($results | Where-Object { $_.outcome -eq "Passed" }).Count
     $featureFailed = @($results | Where-Object { $_.outcome -eq "Failed" }).Count
     $featureSkipped = @($results | Where-Object { $_.outcome -in @("Skipped", "NotExecuted") }).Count
@@ -56,13 +134,13 @@ $features = foreach ($file in $featureFiles) {
     [ordered]@{
         name = $featureName
         file = $file.Name
-        total = @($scenarios).Count
+        total = $scenarioObjects.Count
         executed = $results.Count
         passed = $featurePassed
         failed = $featureFailed
         skipped = $featureSkipped
         status = if ($featureFailed -gt 0) { "Failed" } elseif ($featureSkipped -gt 0) { "Skipped" } else { "Passed" }
-        scenarios = @($scenarios | ForEach-Object { [ordered]@{ name = $_.name; feature = $featureName; status = "Inventory" } })
+        scenarios = @($scenarioObjects)
     }
 }
 

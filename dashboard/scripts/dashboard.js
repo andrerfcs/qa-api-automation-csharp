@@ -27,13 +27,30 @@ const renderScenarios = () => {
   const tbody = document.getElementById("scenarios");
   tbody.replaceChildren();
   setText("scenario-count", `${filtered.length} de ${allScenarios().length} cenário(s)`);
-  if (!filtered.length) { const row = document.createElement("tr"); row.innerHTML = '<td class="empty" colspan="3">Nenhum cenário corresponde aos filtros.</td>'; tbody.appendChild(row); return; }
-  filtered.forEach((scenario) => {
+  if (!filtered.length) { const row = document.createElement("tr"); row.innerHTML = '<td class="empty" colspan="5">Nenhum cenário corresponde aos filtros.</td>'; tbody.appendChild(row); return; }
+  filtered.forEach((scenario, index) => {
     const row = document.createElement("tr");
-    row.innerHTML = `<td>${scenario.name}</td><td>${scenario.feature}</td><td><span class="${statusClass(scenario.status)}">${statusLabel(scenario.status)}</span></td>`;
+    row.innerHTML = `<td><span class="method">${scenario.method || "-"}</span></td><td title="${scenario.name}">${scenario.name}</td><td title="${scenario.route || "-"}"><span class="route">${scenario.route || "-"}</span></td><td>${scenario.feature}</td><td><button class="details-button" type="button" data-scenario-index="${index}" aria-label="Ver detalhes de ${scenario.name}" title="Ver detalhes">&#128065;</button></td>`;
+    row.querySelector(".details-button").addEventListener("click", () => openModal(scenario));
     tbody.appendChild(row);
   });
 };
+
+const openModal = (scenario) => {
+  setText("modal-title", scenario.name); setText("modal-feature", scenario.feature); setText("modal-method", scenario.method || "-"); setText("modal-route", scenario.route || "-");
+  const steps = document.getElementById("modal-steps"); steps.replaceChildren();
+  (scenario.steps || []).forEach((step) => { const item = document.createElement("li"); const keyword = document.createElement("strong"); keyword.className = "step-keyword"; keyword.textContent = step.keyword; item.append(keyword, document.createTextNode(step.text)); steps.appendChild(item); });
+  const examplesContainer = document.getElementById("modal-examples-container");
+  const examples = scenario.examples;
+  examplesContainer.hidden = !examples;
+  if (examples) {
+    document.getElementById("modal-example-head").innerHTML = `<tr>${examples.headers.map((header) => `<th>${header}</th>`).join("")}</tr>`;
+    document.getElementById("modal-example-body").innerHTML = examples.rows.map((row) => `<tr>${examples.headers.map((header) => `<td>${row[header] ?? ""}</td>`).join("")}</tr>`).join("");
+  }
+  document.getElementById("scenario-modal").hidden = false;
+};
+
+const closeModal = () => { document.getElementById("scenario-modal").hidden = true; };
 
 const populateFilters = () => {
   const select = document.getElementById("feature-filter");
@@ -51,5 +68,8 @@ document.getElementById("feature-filter").addEventListener("change", renderScena
 document.getElementById("status-filter").addEventListener("change", renderScenarios);
 document.getElementById("scenario-search").addEventListener("input", renderScenarios);
 document.getElementById("clear-filters").addEventListener("click", () => { document.getElementById("feature-filter").value = ""; document.getElementById("status-filter").value = ""; document.getElementById("scenario-search").value = ""; renderScenarios(); });
+document.getElementById("modal-close").addEventListener("click", closeModal);
+document.getElementById("scenario-modal").addEventListener("click", (event) => { if (event.target.id === "scenario-modal") closeModal(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
 
 fetch("data/results.json", { cache: "no-store" }).then((response) => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }).then(render).catch((error) => { setText("last-run", "Não foi possível carregar os resultados"); document.getElementById("features").innerHTML = `<div class="panel error">${error.message}</div>`; });
