@@ -1,0 +1,303 @@
+{
+    "generatedAt":  "2026-09-18T16:43:46.9877036Z",
+    "summary":  {
+                    "total":  12,
+                    "passed":  12,
+                    "failed":  0,
+                    "skipped":  0,
+                    "successRate":  100
+                },
+    "execution":  {
+                      "status":  "Passed",
+                      "lastRun":  "2026-09-18T16:43:46.9916726Z",
+                      "duration":  "00:00:07.6131619",
+                      "resultFile":  "artifacts\\test-results\\test-results.trx"
+                  },
+    "automation":  {
+                       "features":  [
+                                        {
+                                            "name":  "Books",
+                                            "file":  "Books.feature",
+                                            "total":  10,
+                                            "executed":  12,
+                                            "passed":  12,
+                                            "failed":  0,
+                                            "skipped":  0,
+                                            "status":  "Passed",
+                                            "scenarios":  [
+                                                              {
+                                                                  "name":  "Listar livros com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Books",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET para \"/api/v1/Books\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a resposta deve conter uma lista de livros"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os livros retornados devem conter os campos \"id\" e \"title\""
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar livro por ID com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Books/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET para \"/api/v1/Books/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o livro retornado deve possuir id igual a 1"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o título do livro retornado não deve estar vazio"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar livro por ID inexistente",
+                                                                  "feature":  "Books",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Books/999999",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET para \"/api/v1/Books/999999\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 404"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Criar livro com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "method":  "POST",
+                                                                  "route":  "/api/v1/Books",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição POST para \"/api/v1/Books\" com um novo livro"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o id do livro retornado deve ser igual ao enviado"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o título do livro retornado deve ser igual ao enviado"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar livro com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Books/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT para \"/api/v1/Books/1\" com um livro atualizado"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o id do livro retornado deve ser igual ao enviado"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o título do livro retornado deve ser igual ao enviado"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar atualizar livro com ID inexistente",
+                                                                  "feature":  "Books",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Books/999999",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT para \"/api/v1/Books/999999\" com um livro válido e ID inexistente"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir livro com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Books/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE para \"/api/v1/Books/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar excluir livro com ID inexistente",
+                                                                  "feature":  "Books",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Books/999999",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE para \"/api/v1/Books/999999\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar criar livro com título vazio",
+                                                                  "feature":  "Books",
+                                                                  "method":  "POST",
+                                                                  "route":  "/api/v1/Books",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição POST para \"/api/v1/Books\" com um livro sem título"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null,
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar criar livro com PageCount variado",
+                                                                  "feature":  "Books",
+                                                                  "method":  "POST",
+                                                                  "route":  "/api/v1/Books",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição POST para \"/api/v1/Books\" com PageCount \u003cpageCount\u003e"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  {
+                                                                                   "headers":  [
+                                                                                                   "pageCount"
+                                                                                               ],
+                                                                                   "rows":  [
+                                                                                                {
+                                                                                                    "pageCount":  "-1"
+                                                                                                },
+                                                                                                {
+                                                                                                    "pageCount":  "0"
+                                                                                                },
+                                                                                                {
+                                                                                                    "pageCount":  "100"
+                                                                                                }
+                                                                                            ]
+                                                                               },
+                                                                  "status":  "Inventory"
+                                                              }
+                                                          ]
+                                        }
+                                    ]
+                   },
+    "coverage":  {
+                     "automation":  "Inventario de features e cenarios",
+                     "code":  null
+                 }
+}
