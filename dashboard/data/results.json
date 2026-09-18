@@ -1,0 +1,86 @@
+{
+    "generatedAt":  "2026-09-18T14:19:26.9722629Z",
+    "summary":  {
+                    "total":  12,
+                    "passed":  12,
+                    "failed":  0,
+                    "skipped":  0,
+                    "successRate":  100
+                },
+    "execution":  {
+                      "status":  "Passed",
+                      "lastRun":  "2026-09-18T14:19:26.9732630Z",
+                      "duration":  "00:00:07.6788688",
+                      "resultFile":  "artifacts\\test-results\\test-results.trx"
+                  },
+    "automation":  {
+                       "features":  [
+                                        {
+                                            "name":  "Books",
+                                            "file":  "Books.feature",
+                                            "total":  10,
+                                            "executed":  12,
+                                            "passed":  12,
+                                            "failed":  0,
+                                            "skipped":  0,
+                                            "status":  "Passed",
+                                            "scenarios":  [
+                                                              {
+                                                                  "name":  "Listar livros com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar livro por ID com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar livro por ID inexistente",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Criar livro com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar livro com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar atualizar livro com ID inexistente",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir livro com sucesso",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar excluir livro com ID inexistente",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar criar livro com título vazio",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar criar livro com PageCount variado",
+                                                                  "feature":  "Books",
+                                                                  "status":  "Inventory"
+                                                              }
+                                                          ]
+                                        }
+                                    ]
+                   },
+    "coverage":  {
+                     "automation":  "Inventario de features e cenarios",
+                     "code":  null
+                 }
+}
