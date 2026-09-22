@@ -17,7 +17,7 @@
     .last-update span, .metric-label, .filter label, .feature-meta { display: block; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
     .last-update strong { display: block; margin-top: 3px; color: var(--navy); font-size: 13px; }
     .panel, .metric { background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
-    .filters { display: grid; grid-template-columns: 1fr 1fr 2fr auto; gap: 10px; align-items: end; padding: 12px 14px; margin-bottom: 20px; }
+    .filters { display: grid; grid-template-columns: 1fr 2fr auto; gap: 10px; align-items: end; padding: 12px 14px; margin-bottom: 20px; }
     .filter label { margin-bottom: 5px; }
     select, input, button { width: 100%; height: 35px; border: 1px solid #d7deea; border-radius: 6px; background: #fff; color: var(--ink); font: inherit; padding: 0 9px; }
     button { width: auto; padding: 0 12px; color: var(--blue); background: var(--blue-soft); border-color: #cbdcff; cursor: pointer; font-size: 13px; font-weight: 700; }
@@ -90,7 +90,6 @@
 
     <section class="panel filters" aria-label="Filtros dos cenários">
       <div class="filter"><label for="feature-filter">Feature</label><select id="feature-filter"><option value="">Todas as Features</option></select></div>
-      <div class="filter"><label for="status-filter">Status</label><select id="status-filter"><option value="">Todos os status</option><option value="Passed">Aprovado</option><option value="Failed">Falhou</option><option value="Skipped">Ignorado</option></select></div>
       <div class="filter"><label for="scenario-search">Busca por cenário</label><input id="scenario-search" type="search" placeholder="Digite o nome do cenário"></div>
       <button id="clear-filters" type="button">Limpar filtros</button>
     </section>

@@ -21,6 +21,32 @@ if (-not (Test-Path $trxPath)) {
 
 [xml]$trx = Get-Content -Raw -Path $trxPath
 $results = @($trx.TestRun.Results.UnitTestResult)
+$unitTestsById = @{}
+foreach ($unitTest in @($trx.TestRun.TestDefinitions.UnitTest)) {
+    $unitTestsById[[string]$unitTest.id] = $unitTest
+}
+
+$resultsByFeature = @{}
+foreach ($result in $results) {
+    $unitTest = $unitTestsById[[string]$result.testId]
+    if ($null -eq $unitTest) {
+        continue
+    }
+
+    $className = [string]$unitTest.TestMethod.className
+    $featureClassName = ($className -split '\.')[-1]
+    if ($featureClassName -notmatch 'Feature$') {
+        continue
+    }
+
+    $featureName = $featureClassName.Substring(0, $featureClassName.Length - 'Feature'.Length)
+    if (-not $resultsByFeature.ContainsKey($featureName)) {
+        $resultsByFeature[$featureName] = New-Object System.Collections.Generic.List[object]
+    }
+
+    $resultsByFeature[$featureName].Add($result)
+}
+
 $summary = [ordered]@{
     total = $results.Count
     passed = @($results | Where-Object { $_.outcome -eq "Passed" }).Count
@@ -60,7 +86,6 @@ $features = foreach ($file in $featureFiles) {
                     route = $currentScenario.route
                     steps = @($currentScenario.steps)
                     examples = $examplesData
-                    status = $currentScenario.status
                 }
             }
 
@@ -70,7 +95,6 @@ $features = foreach ($file in $featureFiles) {
                 method = $null
                 route = $null
                 steps = @()
-                status = "Inventory"
             }
             $inExamples = $false
             $exampleHeaders = @()
@@ -123,19 +147,19 @@ $features = foreach ($file in $featureFiles) {
             route = $currentScenario.route
             steps = @($currentScenario.steps)
             examples = $examplesData
-            status = $currentScenario.status
         }
     }
 
-    $featurePassed = @($results | Where-Object { $_.outcome -eq "Passed" }).Count
-    $featureFailed = @($results | Where-Object { $_.outcome -eq "Failed" }).Count
-    $featureSkipped = @($results | Where-Object { $_.outcome -in @("Skipped", "NotExecuted") }).Count
+    $featureResults = if ($resultsByFeature.ContainsKey($featureName)) { $resultsByFeature[$featureName].ToArray() } else { @() }
+    $featurePassed = @($featureResults | Where-Object { $_.outcome -eq "Passed" }).Count
+    $featureFailed = @($featureResults | Where-Object { $_.outcome -eq "Failed" }).Count
+    $featureSkipped = @($featureResults | Where-Object { $_.outcome -in @("Skipped", "NotExecuted") }).Count
 
     [ordered]@{
         name = $featureName
         file = $file.Name
         total = $scenarioObjects.Count
-        executed = $results.Count
+        executed = $featureResults.Count
         passed = $featurePassed
         failed = $featureFailed
         skipped = $featureSkipped

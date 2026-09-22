@@ -4,8 +4,7 @@ const formatDate = (value) => value ? new Intl.DateTimeFormat("pt-BR", { dateSty
 const setText = (id, value) => { document.getElementById(id).textContent = value; };
 const allScenarios = () => dashboardData.automation.features.flatMap((feature) => feature.scenarios.map((scenario) => ({ ...scenario, feature: feature.name })));
 
-const statusLabel = (status) => ({ Passed: "Aprovado", Failed: "Falhou", Skipped: "Ignorado", Inventory: "Inventário" }[status] || status || "Inventário");
-const statusClass = (status) => `status status-${(status || "inventory").toLowerCase()}`;
+const statusLabel = (status) => ({ Passed: "Aprovado", Failed: "Falhou", Skipped: "Ignorado" }[status] || status || "-");
 
 const renderFeatures = () => {
   const container = document.getElementById("features");
@@ -21,9 +20,8 @@ const renderFeatures = () => {
 
 const renderScenarios = () => {
   const feature = document.getElementById("feature-filter").value;
-  const status = document.getElementById("status-filter").value;
   const search = document.getElementById("scenario-search").value.trim().toLowerCase();
-  const filtered = allScenarios().filter((scenario) => (!feature || scenario.feature === feature) && (!status || (scenario.status || "Inventory") === status) && (!search || scenario.name.toLowerCase().includes(search)));
+  const filtered = allScenarios().filter((scenario) => (!feature || scenario.feature === feature) && (!search || scenario.name.toLowerCase().includes(search)));
   const tbody = document.getElementById("scenarios");
   tbody.replaceChildren();
   setText("scenario-count", `${filtered.length} de ${allScenarios().length} cenário(s)`);
@@ -65,9 +63,8 @@ const render = (data) => {
 };
 
 document.getElementById("feature-filter").addEventListener("change", renderScenarios);
-document.getElementById("status-filter").addEventListener("change", renderScenarios);
 document.getElementById("scenario-search").addEventListener("input", renderScenarios);
-document.getElementById("clear-filters").addEventListener("click", () => { document.getElementById("feature-filter").value = ""; document.getElementById("status-filter").value = ""; document.getElementById("scenario-search").value = ""; renderScenarios(); });
+document.getElementById("clear-filters").addEventListener("click", () => { document.getElementById("feature-filter").value = ""; document.getElementById("scenario-search").value = ""; renderScenarios(); });
 document.getElementById("modal-close").addEventListener("click", closeModal);
 document.getElementById("scenario-modal").addEventListener("click", (event) => { if (event.target.id === "scenario-modal") closeModal(); });
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
