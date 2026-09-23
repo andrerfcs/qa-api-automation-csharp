@@ -54,10 +54,58 @@ public class AuthorsSteps
         _response = await _client.CriarAutorAsync(endpoint, _autorEnviado);
     }
 
+    [When("eu enviar uma requisição PUT de Authors para {string} com um autor atualizado")]
+    public async Task WhenEuEnviarUmaRequisicaoPutDeAuthorsParaComUmAutorAtualizado(string endpoint)
+    {
+        _autorEnviado = new Author
+        {
+            Id = 1,
+            IdBook = 1,
+            FirstName = "Author updated by automation",
+            LastName = "FakeRESTAPI test"
+        };
+
+        _response = await _client.AtualizarAutorAsync(endpoint, _autorEnviado);
+    }
+
+    [When("eu enviar uma requisição PUT de Authors para {string} com um autor válido e ID inexistente")]
+    public async Task WhenEuEnviarUmaRequisicaoPutDeAuthorsParaComUmAutorValidoEIdInexistente(string endpoint)
+    {
+        _autorEnviado = new Author
+        {
+            Id = 999999,
+            IdBook = 1,
+            FirstName = "Missing author updated by automation",
+            LastName = "FakeRESTAPI test"
+        };
+
+        _response = await _client.AtualizarAutorAsync(endpoint, _autorEnviado);
+    }
+
+    [When("eu enviar uma requisição DELETE de Authors para {string}")]
+    public async Task WhenEuEnviarUmaRequisicaoDeleteDeAuthorsPara(string endpoint)
+    {
+        _response = await _client.ExcluirAutorAsync(endpoint);
+    }
+
     [Then("o status code da resposta de Authors deve ser {int}")]
     public void ThenOStatusCodeDaRespostaDeAuthorsDeveSer(int statusCodeEsperado)
     {
         Assert.That((int)_response.StatusCode, Is.EqualTo(statusCodeEsperado));
+    }
+
+    [Then("os dados do autor retornado devem ser iguais aos enviados")]
+    public void ThenOsDadosDoAutorRetornadoDevemSerIguaisAosEnviados()
+    {
+        var autor = ObterAutorDaResposta();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(autor.Id, Is.EqualTo(_autorEnviado.Id));
+            Assert.That(autor.IdBook, Is.EqualTo(_autorEnviado.IdBook));
+            Assert.That(autor.FirstName, Is.EqualTo(_autorEnviado.FirstName));
+            Assert.That(autor.LastName, Is.EqualTo(_autorEnviado.LastName));
+        });
     }
 
     [Then("a resposta deve conter uma lista de autores")]

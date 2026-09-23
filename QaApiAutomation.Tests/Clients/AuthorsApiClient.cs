@@ -26,4 +26,19 @@ public class AuthorsApiClient
 
         return await _client.ExecuteAsync(request);
     }
+
+    public async Task<RestResponse> AtualizarAutorAsync(string endpoint, Author autor)
+    {
+        var request = new RestRequest(endpoint, Method.Put);
+        request.AddJsonBody(autor);
+
+        return await _client.ExecuteAsync(request);
+    }
+
+    public async Task<RestResponse> ExcluirAutorAsync(string endpoint)
+    {
+        var request = new RestRequest(endpoint, Method.Delete);
+
+        return await _client.ExecuteAsync(request);
+    }
 }
