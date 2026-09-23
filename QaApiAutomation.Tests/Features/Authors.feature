@@ -27,3 +27,25 @@ Feature: Authors
     And o id do autor retornado deve ser igual ao enviado
     And o idBook do autor retornado deve ser igual ao enviado
     And os nomes do autor retornado devem ser iguais aos enviados
+
+  Scenario: Atualizar autor com sucesso
+    Given que a API FakeRESTAPI está disponível para Authors
+    When eu enviar uma requisição PUT de Authors para "/api/v1/Authors/1" com um autor atualizado
+    Then o status code da resposta de Authors deve ser 200
+    And os dados do autor retornado devem ser iguais aos enviados
+
+  Scenario: Tentar atualizar autor com ID inexistente
+    Given que a API FakeRESTAPI está disponível para Authors
+    When eu enviar uma requisição PUT de Authors para "/api/v1/Authors/999999" com um autor válido e ID inexistente
+    Then o status code da resposta de Authors deve ser 200
+    And os dados do autor retornado devem ser iguais aos enviados
+
+  Scenario: Excluir autor com sucesso
+    Given que a API FakeRESTAPI está disponível para Authors
+    When eu enviar uma requisição DELETE de Authors para "/api/v1/Authors/1"
+    Then o status code da resposta de Authors deve ser 200
+
+  Scenario: Tentar excluir autor com ID inexistente
+    Given que a API FakeRESTAPI está disponível para Authors
+    When eu enviar uma requisição DELETE de Authors para "/api/v1/Authors/999999"
+    Then o status code da resposta de Authors deve ser 200
