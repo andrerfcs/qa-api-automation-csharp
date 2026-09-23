@@ -1,16 +1,16 @@
 {
-    "generatedAt":  "2026-09-22T21:58:52.4527207Z",
+    "generatedAt":  "2026-09-23T12:30:19.0967942Z",
     "summary":  {
-                    "total":  16,
-                    "passed":  16,
+                    "total":  20,
+                    "passed":  20,
                     "failed":  0,
                     "skipped":  0,
                     "successRate":  100
                 },
     "execution":  {
                       "status":  "Passed",
-                      "lastRun":  "2026-09-22T21:58:52.4547215Z",
-                      "duration":  "00:00:10.4593356",
+                      "lastRun":  "2026-09-23T12:30:19.0977948Z",
+                      "duration":  "00:00:13.1701838",
                       "resultFile":  "artifacts\\test-results\\test-results.trx"
                   },
     "automation":  {
@@ -18,9 +18,9 @@
                                         {
                                             "name":  "Authors",
                                             "file":  "Authors.feature",
-                                            "total":  4,
-                                            "executed":  4,
-                                            "passed":  4,
+                                            "total":  8,
+                                            "executed":  8,
+                                            "passed":  8,
                                             "failed":  0,
                                             "skipped":  0,
                                             "status":  "Passed",
@@ -137,6 +137,98 @@
                                                                                 {
                                                                                     "keyword":  "And",
                                                                                     "text":  "os nomes do autor retornado devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar autor com sucesso",
+                                                                  "feature":  "Authors",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Authors/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Authors"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de Authors para \"/api/v1/Authors/1\" com um autor atualizado"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Authors deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados do autor retornado devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar atualizar autor com ID inexistente",
+                                                                  "feature":  "Authors",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Authors/999999",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Authors"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de Authors para \"/api/v1/Authors/999999\" com um autor válido e ID inexistente"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Authors deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados do autor retornado devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir autor com sucesso",
+                                                                  "feature":  "Authors",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Authors/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Authors"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de Authors para \"/api/v1/Authors/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Authors deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Tentar excluir autor com ID inexistente",
+                                                                  "feature":  "Authors",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Authors/999999",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Authors"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de Authors para \"/api/v1/Authors/999999\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Authors deve ser 200"
                                                                                 }
                                                                             ],
                                                                   "examples":  null
