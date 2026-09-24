@@ -15,14 +15,32 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
+      - name: Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
       - name: Restore dependencies
         run: dotnet restore QaApiAutomation.sln
 
+      - name: SonarQube Cloud Begin
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner begin /k:"andrerfcs_qa-api-automation-csharp" /o:"andrerfcs" /d:sonar.token="$SONAR_TOKEN"
+
+      - name: Build solution
+        run: dotnet build QaApiAutomation.sln --no-restore
+
       - name: Run tests
-        run: dotnet test QaApiAutomation.sln --no-restore
+        run: dotnet test QaApiAutomation.sln --no-build --no-restore
+
+      - name: SonarQube Cloud End
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
