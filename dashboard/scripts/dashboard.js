@@ -42,7 +42,15 @@ const openModal = (scenario) => {
   const examples = scenario.examples;
   examplesContainer.hidden = !examples;
   if (examples) {
-    document.getElementById("modal-example-head").innerHTML = `<tr>${examples.headers.map((header) => `<th>${header}</th>`).join("")}</tr>`;
+    const header = document.getElementById("modal-example-head");
+    const headerRow = document.createElement("tr");
+    examples.headers.forEach((headerText) => {
+      const headerCell = document.createElement("th");
+      headerCell.scope = "col";
+      headerCell.textContent = headerText;
+      headerRow.appendChild(headerCell);
+    });
+    header.replaceChildren(headerRow);
     document.getElementById("modal-example-body").innerHTML = examples.rows.map((row) => `<tr>${examples.headers.map((header) => `<td>${row[header] ?? ""}</td>`).join("")}</tr>`).join("");
   }
   document.getElementById("scenario-modal").hidden = false;
