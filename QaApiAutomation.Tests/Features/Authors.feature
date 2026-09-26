@@ -49,3 +49,15 @@ Feature: Authors
     Given que a API FakeRESTAPI está disponível para Authors
     When eu enviar uma requisição DELETE de Authors para "/api/v1/Authors/999999"
     Then o status code da resposta de Authors deve ser 200
+
+  Scenario: Consultar autores por ID do livro com sucesso
+    Given que a API FakeRESTAPI está disponível para Authors
+    When eu consultar autores vinculados ao livro com idBook 1
+    Then o status code da resposta de Authors deve ser 200
+    And todos os autores retornados devem possuir idBook igual a 1
+
+  Scenario: Consultar autores por ID de livro sem autores
+    Given que a API FakeRESTAPI está disponível para Authors
+    When eu consultar autores vinculados ao livro com idBook 999999
+    Then o status code da resposta de Authors deve ser 200
+    And a lista de autores retornada deve estar vazia

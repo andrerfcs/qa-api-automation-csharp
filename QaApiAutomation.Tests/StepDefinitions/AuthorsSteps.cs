@@ -40,6 +40,12 @@ public class AuthorsSteps
         _response = await _client.ObterAutoresAsync(endpoint);
     }
 
+    [When("eu consultar autores vinculados ao livro com idBook {int}")]
+    public async Task WhenEuConsultarAutoresVinculadosAoLivro(int idBook)
+    {
+        _response = await _client.ObterAutoresPorLivroAsync(idBook);
+    }
+
     [When("eu enviar uma requisição POST de Authors para {string} com um novo autor")]
     public async Task WhenEuEnviarUmaRequisicaoPostDeAuthorsParaComUmNovoAutor(string endpoint)
     {
@@ -114,6 +120,23 @@ public class AuthorsSteps
         var autores = ObterAutoresDaResposta();
 
         Assert.That(autores, Is.Not.Empty);
+    }
+
+    [Then("todos os autores retornados devem possuir idBook igual a {int}")]
+    public void ThenTodosOsAutoresRetornadosDevemPossuirIdBookIgualA(int idBookEsperado)
+    {
+        var autores = ObterAutoresDaResposta();
+
+        Assert.That(autores, Is.Not.Empty);
+        Assert.That(autores, Has.All.Property(nameof(Author.IdBook)).EqualTo(idBookEsperado));
+    }
+
+    [Then("a lista de autores retornada deve estar vazia")]
+    public void ThenAListaDeAutoresRetornadaDeveEstarVazia()
+    {
+        var autores = ObterAutoresDaResposta();
+
+        Assert.That(autores, Is.Empty);
     }
 
     [Then("os autores retornados devem conter os campos obrigatórios")]
