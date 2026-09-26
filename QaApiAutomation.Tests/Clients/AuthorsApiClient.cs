@@ -19,6 +19,14 @@ public class AuthorsApiClient
         return await _client.ExecuteAsync(request);
     }
 
+    public async Task<RestResponse> ObterAutoresPorLivroAsync(int idBook)
+    {
+        var endpoint = $"/api/v1/Authors/authors/books/{idBook}";
+        var request = new RestRequest(endpoint, Method.Get);
+
+        return await _client.ExecuteAsync(request);
+    }
+
     public async Task<RestResponse> CriarAutorAsync(string endpoint, Author autor)
     {
         var request = new RestRequest(endpoint, Method.Post);
