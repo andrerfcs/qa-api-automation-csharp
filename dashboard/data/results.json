@@ -1,16 +1,16 @@
 {
-    "generatedAt":  "2026-09-23T12:30:19.0967942Z",
+    "generatedAt":  "2026-09-26T16:47:42.4474159Z",
     "summary":  {
-                    "total":  20,
-                    "passed":  20,
+                    "total":  22,
+                    "passed":  22,
                     "failed":  0,
                     "skipped":  0,
                     "successRate":  100
                 },
     "execution":  {
                       "status":  "Passed",
-                      "lastRun":  "2026-09-23T12:30:19.0977948Z",
-                      "duration":  "00:00:13.1701838",
+                      "lastRun":  "2026-09-26T16:47:42.4514134Z",
+                      "duration":  "00:00:13.9820010",
                       "resultFile":  "artifacts\\test-results\\test-results.trx"
                   },
     "automation":  {
@@ -18,9 +18,9 @@
                                         {
                                             "name":  "Authors",
                                             "file":  "Authors.feature",
-                                            "total":  8,
-                                            "executed":  8,
-                                            "passed":  8,
+                                            "total":  10,
+                                            "executed":  10,
+                                            "passed":  10,
                                             "failed":  0,
                                             "skipped":  0,
                                             "status":  "Passed",
@@ -229,6 +229,56 @@
                                                                                 {
                                                                                     "keyword":  "Then",
                                                                                     "text":  "o status code da resposta de Authors deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar autores por ID do livro com sucesso",
+                                                                  "feature":  "Authors",
+                                                                  "method":  null,
+                                                                  "route":  null,
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Authors"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu consultar autores vinculados ao livro com idBook 1"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Authors deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "todos os autores retornados devem possuir idBook igual a 1"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar autores por ID de livro sem autores",
+                                                                  "feature":  "Authors",
+                                                                  "method":  null,
+                                                                  "route":  null,
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Authors"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu consultar autores vinculados ao livro com idBook 999999"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Authors deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a lista de autores retornada deve estar vazia"
                                                                                 }
                                                                             ],
                                                                   "examples":  null
