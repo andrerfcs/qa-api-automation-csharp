@@ -1,20 +1,220 @@
 {
-    "generatedAt":  "2026-09-26T16:47:42.4474159Z",
+    "generatedAt":  "2026-09-29T12:47:07.3505070Z",
     "summary":  {
-                    "total":  22,
-                    "passed":  22,
+                    "total":  30,
+                    "passed":  30,
                     "failed":  0,
                     "skipped":  0,
                     "successRate":  100
                 },
     "execution":  {
                       "status":  "Passed",
-                      "lastRun":  "2026-09-26T16:47:42.4514134Z",
-                      "duration":  "00:00:13.9820010",
+                      "lastRun":  "2026-09-29T12:47:07.3505070Z",
+                      "duration":  "00:00:18.7520019",
                       "resultFile":  "artifacts\\test-results\\test-results.trx"
                   },
     "automation":  {
                        "features":  [
+                                        {
+                                            "name":  "Activities",
+                                            "file":  "Activities.feature",
+                                            "total":  8,
+                                            "executed":  8,
+                                            "passed":  8,
+                                            "failed":  0,
+                                            "skipped":  0,
+                                            "status":  "Passed",
+                                            "scenarios":  [
+                                                              {
+                                                                  "name":  "Listar atividades com sucesso",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Activities",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de Activities para \"/api/v1/Activities\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a lista de atividades retornada não deve estar vazia"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar atividade por ID com sucesso",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Activities/6",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de Activities para \"/api/v1/Activities/6\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a atividade retornada deve possuir id 6"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar atividade por ID inexistente",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Activities/31",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de Activities para \"/api/v1/Activities/31\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 404"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Criar atividade com sucesso",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "POST",
+                                                                  "route":  "/api/v1/Activities",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição POST de Activities para \"/api/v1/Activities\" com uma nova atividade"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados da atividade retornada devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar atividade existente com sucesso",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Activities/6",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de Activities para \"/api/v1/Activities/6\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados da atividade retornada devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar atividade inexistente",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Activities/31",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de Activities para \"/api/v1/Activities/31\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados da atividade retornada devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir atividade existente",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Activities/6",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de Activities para \"/api/v1/Activities/6\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir atividade inexistente",
+                                                                  "feature":  "Activities",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Activities/31",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Activities"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de Activities para \"/api/v1/Activities/31\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Activities deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              }
+                                                          ]
+                                        },
                                         {
                                             "name":  "Authors",
                                             "file":  "Authors.feature",
