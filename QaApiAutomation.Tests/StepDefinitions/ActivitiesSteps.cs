@@ -28,7 +28,7 @@ public class ActivitiesSteps
         return atividade!;
     }
 
-    private Activity CriarAtividadePayload(int id, string title, bool completed)
+    private static Activity CriarAtividadePayload(int id, string title, bool completed)
     {
         return new Activity
         {
