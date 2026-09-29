@@ -45,35 +45,39 @@ public class ActivitiesSteps
         _client = new ActivitiesApiClient(ApiSettings.BaseUrl);
     }
 
-    [When("eu consultar todas as atividades")]
-    public async Task WhenEuConsultarTodasAsAtividades()
+    [When("eu enviar uma requisição GET de Activities para {string}")]
+    public async Task WhenEuEnviarUmaRequisicaoGetDeActivitiesPara(string endpoint)
     {
-        _response = await _client.ObterAtividadesAsync();
-    }
+        if (endpoint.Equals("/api/v1/Activities", StringComparison.OrdinalIgnoreCase))
+        {
+            _response = await _client.ObterAtividadesAsync();
+            return;
+        }
 
-    [When("eu consultar a atividade com id {int}")]
-    public async Task WhenEuConsultarAAtividadeComId(int id)
-    {
+        var id = int.Parse(endpoint.Substring(endpoint.LastIndexOf('/') + 1));
         _response = await _client.ObterAtividadeAsync(id);
     }
 
-    [When("eu criar uma nova atividade")]
-    public async Task WhenEuCriarUmaNovaAtividade()
+    [When("eu enviar uma requisição POST de Activities para {string} com uma nova atividade")]
+    public async Task WhenEuEnviarUmaRequisicaoPostDeActivitiesParaComUmaNovaAtividade(string endpoint)
     {
+        Assert.That(endpoint, Is.EqualTo("/api/v1/Activities"));
         _atividadeEnviada = CriarAtividadePayload(101, "Activity created by automation", true);
         _response = await _client.CriarAtividadeAsync(_atividadeEnviada);
     }
 
-    [When("eu atualizar a atividade com id {int}")]
-    public async Task WhenEuAtualizarAAtividadeComId(int id)
+    [When("eu enviar uma requisição PUT de Activities para {string}")]
+    public async Task WhenEuEnviarUmaRequisicaoPutDeActivitiesPara(string endpoint)
     {
+        var id = int.Parse(endpoint.Substring(endpoint.LastIndexOf('/') + 1));
         _atividadeEnviada = CriarAtividadePayload(id, "Activity updated by automation", false);
         _response = await _client.AtualizarAtividadeAsync(id, _atividadeEnviada);
     }
 
-    [When("eu excluir a atividade com id {int}")]
-    public async Task WhenEuExcluirAAtividadeComId(int id)
+    [When("eu enviar uma requisição DELETE de Activities para {string}")]
+    public async Task WhenEuEnviarUmaRequisicaoDeleteDeActivitiesPara(string endpoint)
     {
+        var id = int.Parse(endpoint.Substring(endpoint.LastIndexOf('/') + 1));
         _response = await _client.ExcluirAtividadeAsync(id);
     }
 
