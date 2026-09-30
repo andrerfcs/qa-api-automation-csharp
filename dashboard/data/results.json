@@ -1,16 +1,16 @@
 {
-    "generatedAt":  "2026-09-29T12:47:07.3505070Z",
+    "generatedAt":  "2026-09-30T22:58:37.2583903Z",
     "summary":  {
-                    "total":  30,
-                    "passed":  30,
+                    "total":  40,
+                    "passed":  40,
                     "failed":  0,
                     "skipped":  0,
                     "successRate":  100
                 },
     "execution":  {
                       "status":  "Passed",
-                      "lastRun":  "2026-09-29T12:47:07.3505070Z",
-                      "duration":  "00:00:18.7520019",
+                      "lastRun":  "2026-09-30T22:58:37.2613902Z",
+                      "duration":  "00:00:28.1511319",
                       "resultFile":  "artifacts\\test-results\\test-results.trx"
                   },
     "automation":  {
@@ -751,6 +751,260 @@
                                                                                                 }
                                                                                             ]
                                                                                }
+                                                              }
+                                                          ]
+                                        },
+                                        {
+                                            "name":  "CoverPhotos",
+                                            "file":  "CoverPhotos.feature",
+                                            "total":  10,
+                                            "executed":  10,
+                                            "passed":  10,
+                                            "failed":  0,
+                                            "skipped":  0,
+                                            "status":  "Passed",
+                                            "scenarios":  [
+                                                              {
+                                                                  "name":  "Listar CoverPhotos com sucesso",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/CoverPhotos",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de CoverPhotos para \"/api/v1/CoverPhotos\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a resposta deve conter uma lista de CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "as CoverPhotos retornadas devem conter os campos obrigatórios"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar CoverPhoto por ID com sucesso",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/CoverPhotos/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de CoverPhotos para \"/api/v1/CoverPhotos/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a CoverPhoto retornada deve possuir id igual a 1"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar CoverPhoto por ID inexistente",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/CoverPhotos/201",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de CoverPhotos para \"/api/v1/CoverPhotos/201\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 404"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar CoverPhotos por ID do livro com sucesso",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/CoverPhotos/books/covers/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de CoverPhotos para \"/api/v1/CoverPhotos/books/covers/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "todas as CoverPhotos retornadas devem possuir idBook igual a 1"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar CoverPhotos por ID de livro sem capas",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/CoverPhotos/books/covers/999999",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de CoverPhotos para \"/api/v1/CoverPhotos/books/covers/999999\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a lista de CoverPhotos retornada deve estar vazia"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Criar CoverPhoto com sucesso",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "POST",
+                                                                  "route":  "/api/v1/CoverPhotos",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição POST de CoverPhotos para \"/api/v1/CoverPhotos\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados da CoverPhoto retornada devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar CoverPhoto existente",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/CoverPhotos/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de CoverPhotos para \"/api/v1/CoverPhotos/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados da CoverPhoto retornada devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar CoverPhoto inexistente",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/CoverPhotos/201",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de CoverPhotos para \"/api/v1/CoverPhotos/201\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados da CoverPhoto retornada devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir CoverPhoto existente",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/CoverPhotos/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de CoverPhotos para \"/api/v1/CoverPhotos/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir CoverPhoto inexistente",
+                                                                  "feature":  "CoverPhotos",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/CoverPhotos/201",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para CoverPhotos"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de CoverPhotos para \"/api/v1/CoverPhotos/201\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
                                                               }
                                                           ]
                                         }
