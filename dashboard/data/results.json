@@ -1,16 +1,16 @@
 {
-    "generatedAt":  "2026-09-30T22:58:37.2583903Z",
+    "generatedAt":  "2026-10-01T11:52:01.5303590Z",
     "summary":  {
-                    "total":  40,
-                    "passed":  40,
+                    "total":  48,
+                    "passed":  48,
                     "failed":  0,
                     "skipped":  0,
                     "successRate":  100
                 },
     "execution":  {
                       "status":  "Passed",
-                      "lastRun":  "2026-09-30T22:58:37.2613902Z",
-                      "duration":  "00:00:28.1511319",
+                      "lastRun":  "2026-10-01T11:52:01.5316104Z",
+                      "duration":  "00:00:30.8612659",
                       "resultFile":  "artifacts\\test-results\\test-results.trx"
                   },
     "automation":  {
@@ -1002,6 +1002,210 @@
                                                                                 {
                                                                                     "keyword":  "Then",
                                                                                     "text":  "o status code da resposta de CoverPhotos deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              }
+                                                          ]
+                                        },
+                                        {
+                                            "name":  "Users",
+                                            "file":  "Users.feature",
+                                            "total":  8,
+                                            "executed":  8,
+                                            "passed":  8,
+                                            "failed":  0,
+                                            "skipped":  0,
+                                            "status":  "Passed",
+                                            "scenarios":  [
+                                                              {
+                                                                  "name":  "Listar usuários com sucesso",
+                                                                  "feature":  "Users",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Users",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de Users para \"/api/v1/Users\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "a resposta deve conter uma lista de Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os Users retornados devem conter os campos obrigatórios"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar usuário por ID com sucesso",
+                                                                  "feature":  "Users",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Users/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de Users para \"/api/v1/Users/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "o User retornado deve possuir id igual a 1"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Consultar usuário por ID inexistente",
+                                                                  "feature":  "Users",
+                                                                  "method":  "GET",
+                                                                  "route":  "/api/v1/Users/11",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição GET de Users para \"/api/v1/Users/11\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 404"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Criar usuário com sucesso",
+                                                                  "feature":  "Users",
+                                                                  "method":  "POST",
+                                                                  "route":  "/api/v1/Users",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição POST de Users para \"/api/v1/Users\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados do User retornado devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar usuário existente com sucesso",
+                                                                  "feature":  "Users",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Users/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de Users para \"/api/v1/Users/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados do User retornado devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Atualizar usuário inexistente",
+                                                                  "feature":  "Users",
+                                                                  "method":  "PUT",
+                                                                  "route":  "/api/v1/Users/11",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição PUT de Users para \"/api/v1/Users/11\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "And",
+                                                                                    "text":  "os dados do User retornado devem ser iguais aos enviados"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir usuário existente",
+                                                                  "feature":  "Users",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Users/1",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de Users para \"/api/v1/Users/1\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
+                                                                                }
+                                                                            ],
+                                                                  "examples":  null
+                                                              },
+                                                              {
+                                                                  "name":  "Excluir usuário inexistente",
+                                                                  "feature":  "Users",
+                                                                  "method":  "DELETE",
+                                                                  "route":  "/api/v1/Users/11",
+                                                                  "steps":  [
+                                                                                {
+                                                                                    "keyword":  "Given",
+                                                                                    "text":  "que a API FakeRESTAPI está disponível para Users"
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "When",
+                                                                                    "text":  "eu enviar uma requisição DELETE de Users para \"/api/v1/Users/11\""
+                                                                                },
+                                                                                {
+                                                                                    "keyword":  "Then",
+                                                                                    "text":  "o status code da resposta de Users deve ser 200"
                                                                                 }
                                                                             ],
                                                                   "examples":  null
