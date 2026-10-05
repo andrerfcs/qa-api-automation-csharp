@@ -1,75 +1,213 @@
 # 🧪 QA API Automation — C#
 
-Projeto de automação de testes de API desenvolvido em **C#**, utilizando **Reqnroll** e práticas de **BDD (Behavior Driven Development)**.
+[![CI](https://github.com/andrerfcs/qa-api-automation-csharp/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/andrerfcs/qa-api-automation-csharp/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/andrerfcs/qa-api-automation-csharp?label=release)](https://github.com/andrerfcs/qa-api-automation-csharp/releases/latest)
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)
+![Reqnroll](https://img.shields.io/badge/BDD-Reqnroll-blue)
 
-O objetivo deste projeto é demonstrar uma estrutura de automação organizada, escalável e próxima de cenários utilizados em projetos reais de QA.
+Projeto de automação de testes de API desenvolvido em **C# e .NET 8**, utilizando **Reqnroll**, **RestSharp**, **NUnit** e práticas de **BDD (Behavior Driven Development)**.
+
+O objetivo deste projeto é demonstrar uma estrutura de automação organizada, escalável e próxima de cenários utilizados em projetos reais de QA, incluindo automação de APIs, CI/CD, análise de qualidade de código e dashboard de acompanhamento.
 
 ## 🚀 Tecnologias
 
 - C#
-- .NET
+- .NET 8
 - Reqnroll
-- REST API
-- BDD / Gherkin
+- RestSharp
 - NUnit
+- BDD / Gherkin
+- REST API
 - Git & GitHub
 - GitHub Actions
+- SonarQube Cloud
+- HTML / CSS / JavaScript
 
-## 🧪 Tipos de testes
+## 🧪 APIs automatizadas
 
-O projeto será desenvolvido para contemplar cenários como:
+O inventário da FakeRESTAPI utilizado pelo projeto está automatizado nas seguintes Features:
 
-- Testes positivos
-- Testes negativos
+- Activities
+- Authors
+- Books
+- CoverPhotos
+- Users
+
+## 📊 Automação de testes
+
+Estado atual da suíte:
+
+- **5 Features automatizadas**
+- **46 cenários automatizados**
+- **48 execuções de testes**
+- **48 testes aprovados**
+- **0 falhas**
+- **100% de sucesso na execução**
+
+A diferença entre a quantidade de cenários e execuções ocorre devido aos exemplos utilizados em **Scenario Outline**.
+
+Os testes contemplam:
+
+- Cenários positivos
+- Cenários negativos
 - Validação de Status Code
 - Validação de Response Body
-- Validação de Headers
-- Validação de contratos da API
+- Operações GET, POST, PUT e DELETE
 - Testes parametrizados
+- Scenario Outline
 - Reutilização de Steps
-- Geração de evidências
+- Validação do comportamento observado da API
 
 ## 📂 Estrutura do projeto
 
-A estrutura será organizada utilizando separação de responsabilidades entre:
+O projeto utiliza separação de responsabilidades:
 
-- Features
-- Step Definitions
-- Services / Clients
-- Models
-- Helpers
-- Configurações
-- Evidências e relatórios
+```text
+QaApiAutomation.Tests
+├── Clients
+├── Configuration
+├── Features
+├── Models
+└── StepDefinitions
+
+dashboard
+├── data
+├── scripts
+└── index.html
+
+.github
+└── workflows
+    └── ci.yml
+```
+
+Principais responsabilidades:
+
+- **Features** — cenários BDD escritos em Gherkin
+- **StepDefinitions** — implementação dos passos Given / When / Then
+- **Clients** — comunicação HTTP com os endpoints
+- **Models** — representação dos contratos JSON
+- **Configuration** — configurações da automação
+- **Dashboard** — acompanhamento do inventário e execução
+- **GitHub Actions** — execução automatizada do pipeline
 
 ## ⚙️ Configuração da API
 
-A URL base da FakeRESTAPI é definida pela variável de ambiente `API_BASE_URL`. Se a variável não estiver definida, os testes usam `https://fakerestapi.azurewebsites.net`, preservando a configuração atual.
+A URL base da FakeRESTAPI é definida pela variável de ambiente `API_BASE_URL`.
 
-Para executar os testes contra um ambiente específico, defina a URL antes de executar `dotnet test`:
+Caso a variável não esteja definida, os testes utilizam:
+
+`https://fakerestapi.azurewebsites.net`
+
+Para executar os testes contra outro ambiente:
 
 ```powershell
 $env:API_BASE_URL = "https://qa.example.com"
 dotnet test
 ```
 
-No CI/CD, configure `API_BASE_URL` com a URL correspondente ao ambiente DEV, QA ou PROD.
+Isso permite utilizar a mesma suíte em diferentes ambientes sem alterar o código.
 
 ## 🔄 CI/CD
 
-Os testes poderão ser executados automaticamente através do **GitHub Actions**, permitindo validação contínua do projeto.
+O projeto possui pipeline de integração contínua utilizando **GitHub Actions**.
 
-## 📊 Próximas evoluções
+A cada Push ou Pull Request direcionado à `main`, o pipeline executa:
 
-- Implementação dos primeiros cenários de API
-- Relatórios de execução
-- Pipeline CI/CD
-- Execução automática no GitHub Actions
-- Dashboard de cobertura de testes
-- Documentação dos endpoints testados
+1. Checkout do repositório
+2. Configuração do .NET 8
+3. Restauração das dependências
+4. Análise inicial do SonarQube Cloud
+5. Build da solução
+6. Execução dos testes automatizados
+7. Finalização da análise do SonarQube Cloud
+
+O **Quality Gate** é utilizado para acompanhar a qualidade das alterações antes da integração à branch principal.
+
+## 🔍 Qualidade de código
+
+O projeto está integrado ao **SonarQube Cloud** para análise contínua de qualidade.
+
+A análise contempla:
+
+- Qualidade e manutenibilidade do código
+- Análise estática
+- Duplicação de código
+- Security Hotspots
+- Quality Gate integrado ao fluxo de desenvolvimento
+
+O dashboard web permanece sujeito à análise estática. O diretório `dashboard/**` é excluído apenas da métrica de cobertura, pois os testes automatizados em C# não executam o código JavaScript da interface.
+
+## 📈 Dashboard
+
+O projeto possui um dashboard próprio para acompanhamento da automação.
+
+### Dashboard v1.1
+
+Principais recursos:
+
+- Resumo por Feature
+- Indicadores globais de execução
+- Cobertura do inventário de cenários
+- Pesquisa e filtros
+- Visualização de Given / When / Then
+- Visualização de Scenario Outline / Examples
+- Interface responsiva
+- Indicadores de execução
+
+> A cobertura exibida pelo dashboard representa a cobertura do **inventário de cenários definido pelo projeto**, e não uma medida absoluta de cobertura funcional de toda a API.
+
+## ▶️ Executando o projeto
+
+Clone o repositório:
+
+```powershell
+git clone https://github.com/andrerfcs/qa-api-automation-csharp.git
+```
+
+Acesse o projeto:
+
+```powershell
+cd qa-api-automation-csharp
+```
+
+Restaure as dependências:
+
+```powershell
+dotnet restore
+```
+
+Execute os testes:
+
+```powershell
+dotnet test
+```
+
+## 🏷️ Releases
+
+O projeto utiliza **Semantic Versioning** para identificar suas versões estáveis.
+
+Versão estável atual:
+
+**v1.0.0 — First Stable Release**
+
+A primeira versão estável representa a conclusão da automação do inventário utilizado da FakeRESTAPI, integração CI/CD, análise de qualidade e Dashboard v1.1.
+
+## 🗺️ Próximas evoluções
+
+Possíveis evoluções do projeto:
+
+- Relatório detalhado de execução separado do dashboard
+- Testes de contrato utilizando OpenAPI
+- Evolução da estratégia de dados de teste
+- Refatoração de componentes compartilhados conforme o projeto evoluir
+- Publicação do dashboard
+- Expansão da automação para novas APIs
 
 ## 👨‍💻 Autor
 
 **André Silva**  
 QA Engineer | Test Automation | API • Web • Mobile
+
+GitHub: [github.com/andrerfcs](https://github.com/andrerfcs)
 
 LinkedIn: linkedin.com/in/andrericardocsilva
