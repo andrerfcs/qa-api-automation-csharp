@@ -430,3 +430,6 @@ FodyWeavers.xsd
 
 # Reqnroll generated files
 *.feature.cs
+
+# Generated test execution report
+reports/execution-report.html
