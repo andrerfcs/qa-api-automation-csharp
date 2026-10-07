@@ -38,7 +38,20 @@ jobs:
         run: dotnet build QaApiAutomation.sln --no-restore
 
       - name: Run tests
-        run: dotnet test QaApiAutomation.sln --no-build --no-restore
+        run: dotnet test QaApiAutomation.sln --no-build --no-restore --logger "trx;LogFileName=test-results.trx" --results-directory artifacts/test-results
+
+      - name: Generate execution report
+        if: always()
+        shell: pwsh
+        run: ./reports/generate-report.ps1
+
+      - name: Upload execution report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: execution-report
+          path: reports/execution-report.html
+          if-no-files-found: error
 
       - name: SonarQube Cloud End
         env:
