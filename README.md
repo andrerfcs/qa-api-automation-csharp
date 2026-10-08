@@ -75,6 +75,9 @@ dashboard
 ├── scripts
 └── index.html
 
+reports
+└── generate-report.ps1
+
 .github
 └── workflows
     └── ci.yml
@@ -88,6 +91,7 @@ Principais responsabilidades:
 - **Models** — representação dos contratos JSON
 - **Configuration** — configurações da automação
 - **Dashboard** — acompanhamento do inventário e execução
+- **Reports** — geração do relatório HTML de execução a partir dos resultados TRX
 - **GitHub Actions** — execução automatizada do pipeline
 
 ## ⚙️ Configuração da API
@@ -119,9 +123,29 @@ A cada Push ou Pull Request direcionado à `main`, o pipeline executa:
 4. Análise inicial do SonarQube Cloud
 5. Build da solução
 6. Execução dos testes automatizados
-7. Finalização da análise do SonarQube Cloud
+7. Geração do relatório HTML e publicação como artifact `execution-report`
+8. Finalização da análise do SonarQube Cloud
 
 O **Quality Gate** é utilizado para acompanhar a qualidade das alterações antes da integração à branch principal.
+
+As etapas de geração e upload do relatório usam `if: always()`, permitindo disponibilizar as evidências mesmo quando a execução dos testes apresentar falhas.
+
+## Test Execution Report
+
+O pipeline gera os resultados dos testes em formato TRX e usa `reports/generate-report.ps1` para produzir `reports/execution-report.html`. O fluxo é:
+
+**GitHub Actions → Test Execution → TRX → HTML Execution Report → Artifact**
+
+O artifact **`execution-report`** pode ser baixado na execução correspondente do GitHub Actions. Ele contém o arquivo `execution-report.html`, com o resumo da execução, resultados agrupados por Feature, duração das execuções, passos BDD e detalhes de falha quando disponíveis.
+
+Para gerar o relatório localmente, execute na raiz do repositório:
+
+```powershell
+dotnet test QaApiAutomation.sln --logger "trx;LogFileName=test-results.trx" --results-directory artifacts/test-results
+.\reports\generate-report.ps1
+```
+
+O relatório será gerado em `reports/execution-report.html`.
 
 ## 🔍 Qualidade de código
 
@@ -196,7 +220,6 @@ A primeira versão estável representa a conclusão da automação do inventári
 
 Possíveis evoluções do projeto:
 
-- Relatório detalhado de execução separado do dashboard
 - Testes de contrato utilizando OpenAPI
 - Evolução da estratégia de dados de teste
 - Refatoração de componentes compartilhados conforme o projeto evoluir
