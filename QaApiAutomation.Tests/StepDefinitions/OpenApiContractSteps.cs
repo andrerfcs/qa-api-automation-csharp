@@ -64,4 +64,17 @@ public class OpenApiContractSteps
         Assert.That(paths.ValueKind, Is.EqualTo(JsonValueKind.Object));
         Assert.That(paths.TryGetProperty(route, out _), Is.True);
     }
+
+    [Then("a rota {string} deve permitir o método {string}")]
+    public void ThenARotaDevePermitirOMetodo(string route, string httpMethod)
+    {
+        using var document = JsonDocument.Parse(_response.Content!);
+        var root = document.RootElement;
+
+        Assert.That(root.TryGetProperty("paths", out var paths), Is.True);
+        Assert.That(paths.ValueKind, Is.EqualTo(JsonValueKind.Object));
+        Assert.That(paths.TryGetProperty(route, out var routeItem), Is.True);
+        Assert.That(routeItem.ValueKind, Is.EqualTo(JsonValueKind.Object));
+        Assert.That(routeItem.TryGetProperty(httpMethod.ToLowerInvariant(), out _), Is.True);
+    }
 }

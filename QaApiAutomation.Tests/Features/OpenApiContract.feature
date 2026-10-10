@@ -11,4 +11,10 @@ Feature: OpenAPI Contract
     Then o contrato deve conter a rota "/api/v1/Books"
     And o contrato deve conter a rota "/api/v1/Books/{id}"
 
-    
+  Scenario: Validar métodos HTTP de Books no contrato OpenAPI
+    Given que o contrato OpenAPI foi obtido com sucesso
+    Then a rota "/api/v1/Books" deve permitir o método "get"
+    And a rota "/api/v1/Books" deve permitir o método "post"
+    And a rota "/api/v1/Books/{id}" deve permitir o método "get"
+    And a rota "/api/v1/Books/{id}" deve permitir o método "put"
+    And a rota "/api/v1/Books/{id}" deve permitir o método "delete"
