@@ -46,3 +46,19 @@ Feature: OpenAPI Contract
     And a propriedade "idBook" do schema "Author" deve ser do tipo "integer"
     And a propriedade "firstName" do schema "Author" deve ser do tipo "string"
     And a propriedade "lastName" do schema "Author" deve ser do tipo "string"
+
+  Scenario: Validar contrato de Activities no OpenAPI
+    Given que o contrato OpenAPI foi obtido com sucesso
+    Then o contrato deve conter a rota "/api/v1/Activities"
+    And o contrato deve conter a rota "/api/v1/Activities/{id}"
+    And a rota "/api/v1/Activities" deve permitir o método "get"
+    And a rota "/api/v1/Activities" deve permitir o método "post"
+    And a rota "/api/v1/Activities/{id}" deve permitir o método "get"
+    And a rota "/api/v1/Activities/{id}" deve permitir o método "put"
+    And a rota "/api/v1/Activities/{id}" deve permitir o método "delete"
+    And o schema "Activity" deve existir no contrato
+    And a propriedade "id" do schema "Activity" deve ser do tipo "integer"
+    And a propriedade "title" do schema "Activity" deve ser do tipo "string"
+    And a propriedade "dueDate" do schema "Activity" deve ser do tipo "string"
+    And a propriedade "dueDate" do schema "Activity" deve possuir o formato "date-time"
+    And a propriedade "completed" do schema "Activity" deve ser do tipo "boolean"
