@@ -18,3 +18,14 @@ Feature: OpenAPI Contract
     And a rota "/api/v1/Books/{id}" deve permitir o método "get"
     And a rota "/api/v1/Books/{id}" deve permitir o método "put"
     And a rota "/api/v1/Books/{id}" deve permitir o método "delete"
+
+  Scenario: Validar schema Book no contrato OpenAPI
+    Given que o contrato OpenAPI foi obtido com sucesso
+    Then o schema "Book" deve existir no contrato
+    And a propriedade "id" do schema "Book" deve ser do tipo "integer"
+    And a propriedade "title" do schema "Book" deve ser do tipo "string"
+    And a propriedade "description" do schema "Book" deve ser do tipo "string"
+    And a propriedade "pageCount" do schema "Book" deve ser do tipo "integer"
+    And a propriedade "excerpt" do schema "Book" deve ser do tipo "string"
+    And a propriedade "publishDate" do schema "Book" deve ser do tipo "string"
+    And a propriedade "publishDate" do schema "Book" deve possuir o formato "date-time"
