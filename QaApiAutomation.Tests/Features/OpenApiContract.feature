@@ -78,3 +78,17 @@ Feature: OpenAPI Contract
     And a propriedade "id" do schema "CoverPhoto" deve ser do tipo "integer"
     And a propriedade "idBook" do schema "CoverPhoto" deve ser do tipo "integer"
     And a propriedade "url" do schema "CoverPhoto" deve ser do tipo "string"
+
+  Scenario: Validar contrato de Users no OpenAPI
+    Given que o contrato OpenAPI foi obtido com sucesso
+    Then o contrato deve conter a rota "/api/v1/Users"
+    And o contrato deve conter a rota "/api/v1/Users/{id}"
+    And a rota "/api/v1/Users" deve permitir o método "get"
+    And a rota "/api/v1/Users" deve permitir o método "post"
+    And a rota "/api/v1/Users/{id}" deve permitir o método "get"
+    And a rota "/api/v1/Users/{id}" deve permitir o método "put"
+    And a rota "/api/v1/Users/{id}" deve permitir o método "delete"
+    And o schema "User" deve existir no contrato
+    And a propriedade "id" do schema "User" deve ser do tipo "integer"
+    And a propriedade "userName" do schema "User" deve ser do tipo "string"
+    And a propriedade "password" do schema "User" deve ser do tipo "string"
