@@ -62,3 +62,19 @@ Feature: OpenAPI Contract
     And a propriedade "dueDate" do schema "Activity" deve ser do tipo "string"
     And a propriedade "dueDate" do schema "Activity" deve possuir o formato "date-time"
     And a propriedade "completed" do schema "Activity" deve ser do tipo "boolean"
+
+  Scenario: Validar contrato de CoverPhotos no OpenAPI
+    Given que o contrato OpenAPI foi obtido com sucesso
+    Then o contrato deve conter a rota "/api/v1/CoverPhotos"
+    And o contrato deve conter a rota "/api/v1/CoverPhotos/{id}"
+    And o contrato deve conter a rota "/api/v1/CoverPhotos/books/covers/{idBook}"
+    And a rota "/api/v1/CoverPhotos" deve permitir o método "get"
+    And a rota "/api/v1/CoverPhotos" deve permitir o método "post"
+    And a rota "/api/v1/CoverPhotos/{id}" deve permitir o método "get"
+    And a rota "/api/v1/CoverPhotos/{id}" deve permitir o método "put"
+    And a rota "/api/v1/CoverPhotos/{id}" deve permitir o método "delete"
+    And a rota "/api/v1/CoverPhotos/books/covers/{idBook}" deve permitir o método "get"
+    And o schema "CoverPhoto" deve existir no contrato
+    And a propriedade "id" do schema "CoverPhoto" deve ser do tipo "integer"
+    And a propriedade "idBook" do schema "CoverPhoto" deve ser do tipo "integer"
+    And a propriedade "url" do schema "CoverPhoto" deve ser do tipo "string"
