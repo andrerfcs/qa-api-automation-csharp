@@ -18,6 +18,16 @@ public class OpenApiContractSteps
         _client = new OpenApiClient(ApiSettings.BaseUrl);
     }
 
+    [Given("que o contrato OpenAPI foi obtido com sucesso")]
+    public async Task GivenQueOContratoOpenApiFoiObtidoComSucesso()
+    {
+        _client = new OpenApiClient(ApiSettings.BaseUrl);
+        _response = await _client.ObterOpenApiAsync();
+
+        Assert.That((int)_response.StatusCode, Is.EqualTo(200));
+        Assert.That(_response.Content, Is.Not.Null.And.Not.Empty);
+    }
+
     [When("eu consultar o contrato OpenAPI")]
     public async Task WhenEuConsultarOContratoOpenApi()
     {
@@ -42,5 +52,16 @@ public class OpenApiContractSteps
         Assert.That(root.TryGetProperty("openapi", out var openApiVersion), Is.True);
         Assert.That(openApiVersion.ValueKind, Is.EqualTo(JsonValueKind.String));
         Assert.That(openApiVersion.GetString(), Is.Not.Null.And.Not.Empty);
+    }
+
+    [Then("o contrato deve conter a rota {string}")]
+    public void ThenOContratoDeveConterARota(string route)
+    {
+        using var document = JsonDocument.Parse(_response.Content!);
+        var root = document.RootElement;
+
+        Assert.That(root.TryGetProperty("paths", out var paths), Is.True);
+        Assert.That(paths.ValueKind, Is.EqualTo(JsonValueKind.Object));
+        Assert.That(paths.TryGetProperty(route, out _), Is.True);
     }
 }
